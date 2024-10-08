@@ -1,3 +1,4 @@
+from .pump_config import PumpConfig
 from .patient import Patient
 from .insulin_pump import InsulinPump
 from .cgm import CGM
@@ -23,30 +24,28 @@ class Simulator:
 
     def run_simulation(self):
         for hour in range(self.duration):
+            # Administrer l'insuline basale
             basal_insulin = self.pump.deliver_basal(hour)
             self.patient.update_glucose_level(basal_insulin, 0)
 
+            # Mesurer la glycémie
             glucose = self.cgm.measure_glucose(self.patient)
-            print(f"Hour {hour}: Glucose level: {glucose} mg/dL")
+            print(f"Hour {hour}: Glucose level: {glucose:.2f} mg/dL")
 
+            # Ajuster la délivrance basale en fonction de la boucle fermée
             correction_insulin = self.controller.adjust_basal_rate(glucose)
             self.patient.update_glucose_level(correction_insulin, 0)
 
         print("Simulation terminée")
 
 if __name__ == "__main__":
-    from pump_config import PumpConfig
-    config = PumpConfig(
-        basal_rates=[0.8]*24,
-        insulin_to_carb_ratio=10,
-        insulin_sensitivity_factor=30,
-        max_bolus=10
-    )
-
+    config = PumpConfig()
+    
+    # Initialisation du patient avec des valeurs spécifiques
     patient = Patient(initial_glucose=120, carb_sensitivity=5, insulin_sensitivity=2)
     pump = InsulinPump(config)
     cgm = CGM(measurement_interval=5)
     controller = ClosedLoopController(target_glucose=100, pump=pump, cgm=cgm)
 
-    simulator = Simulator(patient, pump, cgm, controller, duration=24)
+    simulator = Simulator(patient, pump, cgm, controller, duration=24)  # Simulation de 24 heures
     simulator.run_simulation()

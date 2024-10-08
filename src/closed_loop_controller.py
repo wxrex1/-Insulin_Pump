@@ -16,6 +16,14 @@ class ClosedLoopController:
         self.cgm = cgm
 
     def adjust_basal_rate(self, current_glucose):
+        """
+        Ajuste la délivrance basale d'insuline en fonction de la glycémie mesurée.
+        Args:
+            current_glucose (float): Glycémie actuelle mesurée (mg/dL).
+        Returns:
+            float: Quantité d'insuline à administrer (U).
+        """
         if current_glucose > self.target_glucose:
             return self.pump.calculate_correction_bolus(current_glucose, self.target_glucose)
-        return 0
+        return 0  # Pas d'ajustement si la glycémie est à la cible
+
