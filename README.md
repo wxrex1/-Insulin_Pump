@@ -16,3 +16,7 @@ insulin_pump_simulator/
 │
 ├── README.md
 └── requirements.txt
+
+
+
+https://chatgpt.com/share/67053589-4a38-8009-a181-9e4eea7e4df8
