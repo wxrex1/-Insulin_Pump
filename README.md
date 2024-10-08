@@ -1,12 +1,12 @@
 # Vérifier la version de Python
-python --version :windows
+python --version :Windows
 python3 --version :Mac
 
 # Naviguer vers le dossier du projet
 cd /c/Cours/tech/5eme\ Année/Insulin_Pump
 
 # Créer un environnement virtuel
-python -m venv venv :windows
+python -m venv venv :Windows
 python3 -m venv venv :Mac
 
 # Activer l'environnement virtuel
@@ -16,10 +16,13 @@ source venv/Scripts/activate
 pip install -r requirements.txt
 
 # Exécuter le simulateur
-python -m src.simulator
+python -m src.simulator :Windows
+python3 -m src.simulator :Mac
 
 # Exécuter les tests
-python -m unittest discover -v test
+python -m unittest discover -v test :Windows
+python3 -m unittest discover -v test :Mac
+
 
 ----------------------------------------------------------------------------
 
