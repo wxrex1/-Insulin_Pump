@@ -9,4 +9,11 @@ class CGM:
         self.measurement_interval = measurement_interval
 
     def measure_glucose(self, patient):
+        """
+        Mesure la glycémie actuelle du patient.
+        Args:
+            patient (Patient): Instance de la classe Patient.
+        Returns:
+            float: Glycémie actuelle (mg/dL).
+        """
         return patient.glucose_level
