@@ -1,24 +1,21 @@
-from .pump_config import PumpConfig
-
-class InsulinPump:
+class Patient:
     """
-    Classe représentant la pompe à insuline.
+    Classe représentant un patient diabétique.
     Attributs :
-        config (PumpConfig): Configuration de la pompe à insuline.
+        initial_glucose (float): Glycémie initiale (mg/dL).
+        carb_sensitivity (float): Sensibilité aux glucides (mg/dL par g).
+        insulin_sensitivity (float): Sensibilité à l'insuline (mg/dL par U).
     """
 
-    def __init__(self, config):
-        self.config = config
+    def __init__(self, initial_glucose, carb_sensitivity, insulin_sensitivity):
+        self.glucose_level = initial_glucose
+        self.carb_sensitivity = carb_sensitivity
+        self.insulin_sensitivity = insulin_sensitivity
 
-    def deliver_basal(self, hour):
-        return self.config.basal_rates[hour]
+    def update_glucose_level(self, insulin, carbs):
+        delta_glucose_carbs = carbs * self.carb_sensitivity
+        delta_glucose_insulin = insulin * self.insulin_sensitivity
+        self.glucose_level += delta_glucose_carbs - delta_glucose_insulin
 
-    def calculate_meal_bolus(self, carbs):
-        return carbs / self.config.insulin_to_carb_ratio
-
-    def calculate_correction_bolus(self, current_glucose, target_glucose):
-        delta_glucose = current_glucose - target_glucose
-        return delta_glucose / self.config.insulin_sensitivity_factor
-
-    def apply_configuration(self, config):
-        self.config = config
+    def add_carbs(self, carbs):
+        self.update_glucose_level(0, carbs)
