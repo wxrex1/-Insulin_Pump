@@ -18,5 +18,23 @@ insulin_pump_simulator/
 └── requirements.txt
 
 
+# Vérifier la version de Python
+python --version
 
-https://chatgpt.com/share/67053589-4a38-8009-a181-9e4eea7e4df8
+# Naviguer vers le dossier du projet
+cd /c/Cours/tech/5eme\ Année/Insulin_Pump
+
+# Créer un environnement virtuel
+python -m venv venv
+
+# Activer l'environnement virtuel
+source venv/Scripts/activate
+
+# Installer les dépendances
+pip install -r requirements.txt
+
+# Exécuter le simulateur
+python -m src.simulator
+
+# Exécuter les tests
+python -m unittest discover -v test
