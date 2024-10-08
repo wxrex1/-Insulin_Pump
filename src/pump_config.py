@@ -16,6 +16,11 @@ class PumpConfig:
                 0.7, 0.8, 1.1, 1.0, 0.9, 0.8, 0.6,
                 0.5, 0.4, 0.3
             ]
+
+        # Validation des paramètres
+        if insulin_to_carb_ratio <= 0 or insulin_sensitivity_factor <= 0 or max_bolus <= 0:
+            raise ValueError("Insulin to carb ratio, insulin sensitivity factor, and max bolus must be positive values.")
+
         self.basal_rates = basal_rates
         self.insulin_to_carb_ratio = insulin_to_carb_ratio
         self.insulin_sensitivity_factor = insulin_sensitivity_factor
